@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   // State to manage the navbar's visibility
@@ -12,14 +13,21 @@ const NavBar = () => {
 
   const navOption = (
     <>
-      <li className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">
-        <a>Homepage</a>
+      <li>
+        <Link
+          to={"/"}
+          className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
+        >
+          Home
+        </Link>
       </li>
-      <li className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">
-        <a>Portfolio</a>
-      </li>
-      <li className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black">
-        <a>About</a>
+      <li>
+        <Link
+          to={"/menu"}
+          className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
+        >
+          menu
+        </Link>
       </li>
     </>
   );
