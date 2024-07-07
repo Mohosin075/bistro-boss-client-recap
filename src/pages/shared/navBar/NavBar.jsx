@@ -2,9 +2,13 @@ import { useContext, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
-
+import { FaCartPlus } from "react-icons/fa6";
+import useCarts from "../../../hooks/useCarts";
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+
+
+  const [cart] = useCarts()
 
   const [nav, setNav] = useState(false);
   const handleNav = () => {
@@ -51,12 +55,22 @@ const NavBar = () => {
           secret
         </Link>
       </li>
+      <li className="mr-8">
+        <Link
+          to={"/dashboard/cart"}
+          className="p-4  rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
+        >
+          <button className="btn">
+            <FaCartPlus className="text-xl"/>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </Link>
+      </li>
       {user ? (
         <li>
           <button onClick={handleLogOut} className="btn btn-active btn-ghost">
             LogOut
           </button>{" "}
-          
         </li>
       ) : (
         <li>
