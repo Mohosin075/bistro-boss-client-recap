@@ -72,9 +72,9 @@ const DashBoard = () => {
                                         Add a Review</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/bookings">
+                                    <NavLink to="/dashboard/paymentHistory">
                                         <FaList></FaList>
-                                        My Bookings</NavLink>
+                                        Payment history</NavLink>
                                 </li>
                             </>
                     }
@@ -86,7 +86,7 @@ const DashBoard = () => {
                             Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/order/salad">
+                        <NavLink to="/order/pizza">
                             <FaSearch></FaSearch>
                             Menu</NavLink>
                     </li>
