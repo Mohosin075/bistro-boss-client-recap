@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { FaCartPlus } from "react-icons/fa6";
 import useCarts from "../../../hooks/useCarts";
+import useAdmin from "../../../hooks/useAdmin";
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
 
 
   const [cart] = useCarts()
@@ -47,14 +49,22 @@ const NavBar = () => {
           order
         </Link>
       </li>
-      <li>
+      {user && !isAdmin &&<li>
         <Link
-          to={"/secret"}
+          to={"/dashboard/userHome"}
           className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
         >
-          secret
+          dashboard
         </Link>
-      </li>
+      </li>}
+      {user && isAdmin && <li>
+        <Link
+          to={"/dashboard/adminHome"}
+          className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
+        >
+          dashboard
+        </Link>
+      </li>}
       <li className="mr-8">
         <Link
           to={"/dashboard/cart"}
