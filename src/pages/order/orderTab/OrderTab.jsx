@@ -7,12 +7,15 @@ const OrderTab = ({ item }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(4);
 
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
+    setLoading(true)
     fetch(
       `http://localhost:5000/menuPagination/${item}?page=${currentPage}&size=${itemPerPage}`
     )
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false)
         console.log(data);
         setItems(data.category);
         setTotalItem(data.totalItem);
@@ -39,7 +42,11 @@ const OrderTab = ({ item }) => {
 
   return (
     <div>
+      {
+          loading && <h3 className="text-3xl text-center my-5">Data Loading.....</h3>
+        }
       <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+        
         {items?.map((item) => {
           console.log(item.category);
           return <FoodCard key={item._id} item={item}></FoodCard>;
