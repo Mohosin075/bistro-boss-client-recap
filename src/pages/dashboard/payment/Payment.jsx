@@ -3,7 +3,7 @@ import SectionTitle from "../../../components/sectionTitle/SectionTitle";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckOutForm from "./CheckOutForm";
 
-// TODO : add pk
+
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK)
 const Payment = () => {

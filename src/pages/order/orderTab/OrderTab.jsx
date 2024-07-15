@@ -1,32 +1,89 @@
+import { useEffect, useState } from "react";
 import FoodCard from "../../../components/foodCard/FoodCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 
-const OrderTab = ({ items }) => {
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return '<span class="' + className + '">' + (index + 1) + "</span>";
-    },
+const OrderTab = ({ item }) => {
+  const [items, setItems] = useState([]);
+  const [totalItem, setTotalItem] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemPerPage, setItemPerPage] = useState(4);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/menuPagination/${item}?page=${currentPage}&size=${itemPerPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setItems(data.category);
+        setTotalItem(data.totalItem);
+      });
+  }, [currentPage, itemPerPage, item]);
+
+  const numberOfPage = Math.ceil(totalItem / itemPerPage);
+  const pages = [...Array(numberOfPage).keys()];
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNextPage = () => {
+    console.log(currentPage, pages.length - 1);
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const handleItemPerPage = (e) => {
+    setItemPerPage(e.target.value);
+    setCurrentPage(0);
   };
 
   return (
     <div>
-      <Swiper
-        pagination={pagination}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <div className="grid md:grid-cols-3 gap-5">
-            {items.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
-        </SwiperSlide>
-      </Swiper>
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+        {items?.map((item) => {
+          console.log(item.category);
+          return <FoodCard key={item._id} item={item}></FoodCard>;
+        })}
+      </div>
+      <div className="text-center">
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 0}
+          className="btn mr-3 my-5"
+        >
+          prev
+        </button>
+        {pages.map((page) => (
+          <button
+            onClick={() => setCurrentPage(page)}
+            className={
+              currentPage === page ? "btn-primary btn mr-3" : "btn mr-3"
+            }
+            key={page}
+          >
+            {page}
+          </button>
+        ))}
+        <select
+          className="select select-bordered mr-3"
+          value={itemPerPage}
+          onChange={handleItemPerPage}
+          name=""
+          id=""
+        >
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="10">10</option>
+        </select>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === pages.length - 1}
+          className="btn mr-3 my-5"
+        >
+          next
+        </button>
+      </div>
     </div>
   );
 };

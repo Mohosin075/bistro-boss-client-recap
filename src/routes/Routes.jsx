@@ -7,7 +7,6 @@ import Menu from "../pages/menu/menu/Menu";
 import Order from "../pages/order/order/Order";
 import Login from "../pages/login/Login";
 import SignUp from "../pages/signUp/SignUp";
-import Secret from "../pages/secret/Secret";
 import PrivateRoute from "./PrivateRoute";
 import DashBoard from "../layOut/DashBoard";
 import Cart from "../pages/dashboard/cards/Cart";
@@ -41,10 +40,6 @@ import AdminHome from "../pages/dashboard/adminHome/AdminHome";
         {
             path : '/signup',
             element : <SignUp></SignUp>
-        },
-        {
-            path : '/secret',
-            element : <PrivateRoute><Secret></Secret></PrivateRoute>
         },
         {
             path : '/order/:category',
@@ -92,7 +87,7 @@ import AdminHome from "../pages/dashboard/adminHome/AdminHome";
         {
           path : 'updateItem/:id',
           element : <AdminRoutes><UpdateItems></UpdateItems></AdminRoutes>,
-          loader : ({params})=> fetch(`http://localhost:5000/menu/${params.id}`)
+          loader : ({params})=> fetch(`https://bistro-boss-recap-server-lake.vercel.app/menu/${params.id}`)
         },
       ]
 
