@@ -19,6 +19,9 @@ import Payment from "../pages/dashboard/payment/Payment";
 import PaymentHistory from "../pages/dashboard/paymentHistory/PaymentHistory";
 import UserHome from "../pages/dashboard/userHome/UserHome";
 import AdminHome from "../pages/dashboard/adminHome/AdminHome";
+import SSLPayment from "../pages/dashboard/SSLPayment/SSLPayment";
+import SuccessFull from "../pages/dashboard/SSLPayment/SuccessFull";
+import Fail from "../pages/dashboard/SSLPayment/Fail";
 
   export const router = createBrowserRouter([
     {
@@ -45,6 +48,14 @@ import AdminHome from "../pages/dashboard/adminHome/AdminHome";
             path : '/order/:category',
             element : <Order></Order>
         },
+        {
+          path : '/payment/success/:tranId',
+          element : <SuccessFull></SuccessFull>
+        },
+        {
+          path : '/payment/fail/:tranId',
+          element : <Fail></Fail>
+        },
       ]
     },
     {
@@ -67,6 +78,11 @@ import AdminHome from "../pages/dashboard/adminHome/AdminHome";
           path : 'paymentHistory',
           element : <PaymentHistory></PaymentHistory>
         },
+        {
+          path : 'sslPayment',
+          element : <SSLPayment></SSLPayment>
+        },
+        
         // admin only routes
         {
           path : 'adminHome',
